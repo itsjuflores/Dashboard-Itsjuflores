@@ -1,1 +1,283 @@
-# Dashboard-Itsjuflores
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<title>Central — @itsjuflores</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Fraunces:ital,opsz,wght@1,9..144,500&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F6F3F9;
+    --surface:#FFFFFF;
+    --stone:#CFC9BD;
+    --stone-soft:#E7E2D7;
+    --ink:#2C2A35;
+    --ink-soft:#716C7C;
+    --lavender:#8C7BC9;
+    --lavender-deep:#6C5AA8;
+    --rust:#9B504B;
+    --coral:#D2634F;
+    --indigo:#5C69AF;
+    --line:rgba(44,42,53,0.12);
+    --shadow:0 14px 30px -16px rgba(76,60,120,0.28);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:
+      radial-gradient(1000px 460px at 8% -10%, rgba(140,123,201,0.14), transparent 60%),
+      radial-gradient(900px 480px at 100% 0%, rgba(210,99,79,0.10), transparent 55%),
+      var(--bg);
+    color:var(--ink);
+    font-family:'Public Sans', sans-serif;
+    min-height:100vh;
+  }
+  .wrap{max-width:1040px;margin:0 auto;padding:44px 22px 90px;}
+
+  .hero{ padding-bottom:26px; margin-bottom:34px; border-bottom:1px solid var(--line);}
+  .kicker{ font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:.18em; text-transform:uppercase; color:var(--indigo); margin:0 0 10px;}
+  h1.title{ font-family:'Fraunces', serif; font-weight:600; font-size:42px; line-height:1.02; color:var(--ink); margin:0; letter-spacing:-0.01em;}
+  h1.title em{ font-style:italic; font-weight:500; color:var(--lavender-deep); }
+  .hero-sub{ color:var(--ink-soft); font-size:14.5px; margin-top:10px; max-width:520px; line-height:1.5;}
+
+  .add-btn{
+    font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:.05em; text-transform:uppercase;
+    background:var(--lavender); border:1px solid var(--lavender); color:#fff; font-weight:600;
+    padding:10px 18px; border-radius:6px; cursor:pointer; white-space:nowrap; margin-top:20px;
+  }
+  .add-btn:hover{ background:var(--lavender-deep); border-color:var(--lavender-deep);}
+
+  .grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(240px,1fr)); gap:18px; }
+
+  .card{
+    background:var(--surface); border-radius:10px; box-shadow:var(--shadow); padding:22px 22px 18px;
+    display:flex; flex-direction:column; position:relative; border-top:4px solid var(--stone);
+    min-height:190px;
+  }
+  .card .emoji{ font-size:30px; margin-bottom:12px; }
+  .card h3{ font-family:'Fraunces', serif; font-size:19px; font-weight:600; margin:0 0 6px; color:var(--ink);}
+  .card p{ font-size:13px; color:var(--ink-soft); line-height:1.5; margin:0 0 18px; flex:1;}
+  .card-footer{ display:flex; justify-content:space-between; align-items:center; gap:8px; }
+  .open-btn{
+    font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.05em; text-transform:uppercase;
+    background:var(--ink); color:#fff; border:none; padding:8px 14px; border-radius:5px; cursor:pointer; text-decoration:none; display:inline-block;
+  }
+  .open-btn:hover{ background:var(--lavender-deep); }
+  .open-btn.missing{ background:var(--stone-soft); color:var(--ink-soft); cursor:pointer; }
+  .card-actions{ display:flex; gap:10px; }
+  .icon-btn{
+    background:none; border:none; color:var(--ink-soft); cursor:pointer; font-size:13px; padding:2px;
+  }
+  .icon-btn:hover{ color:var(--rust); }
+
+  .empty-note{ font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--ink-soft); text-align:center; padding:40px 0; grid-column:1/-1;}
+
+  /* ---------- MODAL ---------- */
+  .overlay{ position:fixed; inset:0; background:rgba(30,20,45,0.55); display:none; align-items:center; justify-content:center; z-index:50; padding:24px; backdrop-filter:blur(2px);}
+  .overlay.open{ display:flex; }
+  .modal{ background:var(--surface); max-width:460px; width:100%; max-height:88vh; overflow-y:auto; border-radius:10px; box-shadow:0 30px 70px rgba(0,0,0,0.35); position:relative; padding:26px 26px 22px;}
+  .modal-close{ position:absolute; top:12px; right:14px; background:var(--ink); color:#fff; border:none; width:28px; height:28px; border-radius:50%; cursor:pointer; font-size:15px;}
+  .field{ margin-bottom:14px; }
+  .field label{ display:block; font-family:'IBM Plex Mono',monospace; font-size:10px; text-transform:uppercase; letter-spacing:.06em; color:var(--ink-soft); margin-bottom:4px;}
+  .field input[type=text], .field input[type=url], .field textarea{
+    width:100%; font-family:'Public Sans',sans-serif; font-size:13.5px; color:var(--ink); border:1px solid var(--line);
+    border-radius:5px; padding:8px 10px; background:var(--bg);
+  }
+  .field textarea{ min-height:60px; resize:vertical; }
+  .emoji-row{ display:flex; gap:6px; flex-wrap:wrap; }
+  .emoji-row button{
+    font-size:18px; padding:6px 9px; border-radius:5px; border:1px solid var(--line); background:var(--bg); cursor:pointer;
+  }
+  .emoji-row button.on{ border-color:var(--lavender); background:rgba(140,123,201,0.14); }
+  .modal-actions{ display:flex; gap:8px; flex-wrap:wrap; margin-top:16px; }
+  .save-btn{ font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.04em; text-transform:uppercase; background:var(--lavender); color:#fff; border:none; padding:9px 16px; border-radius:5px; cursor:pointer; font-weight:600;}
+  .save-btn:hover{ background:var(--lavender-deep); }
+  .danger-btn{ font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.04em; text-transform:uppercase; background:transparent; color:var(--rust); border:1px solid var(--rust); padding:9px 16px; border-radius:5px; cursor:pointer;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="hero">
+    <p class="kicker">Central de Ferramentas</p>
+    <h1 class="title">@itsjuflores <em>— tudo num só lugar</em></h1>
+    <p class="hero-sub">Um ponto de entrada pra todas as suas plataformas publicadas — painel editorial, estante de leituras, e o que mais vier por aí.</p>
+    <button class="add-btn" id="addToolBtn">+ Nova ferramenta</button>
+  </div>
+
+  <div class="grid" id="toolGrid"></div>
+
+</div>
+
+<div class="overlay" id="overlay">
+  <div class="modal">
+    <button class="modal-close" id="modalClose">✕</button>
+    <div id="modalContent"></div>
+  </div>
+</div>
+
+<script>
+const EMOJI_OPTIONS = ["🗂️","📚","📅","✨","🎯","💌","📖","🌸"];
+
+let tools = [
+  {
+    id: 1,
+    emoji: "🗂️",
+    title: "Painel Editorial",
+    description: "Suas fichas de conteúdo — arte, legenda e status de cada post do calendário.",
+    url: ""
+  },
+  {
+    id: 2,
+    emoji: "📚",
+    title: "Estante de Leituras 2026",
+    description: "Capas, datas de leitura, autoras, gêneros e progresso das suas séries.",
+    url: ""
+  }
+];
+
+async function loadState(){
+  try{
+    const res = await window.storage.get('itsjuflores-hub-tools', false);
+    if(res && res.value){
+      tools = JSON.parse(res.value);
+    } else {
+      await saveState();
+    }
+  }catch(e){
+    await saveState();
+  }
+  render();
+}
+
+async function saveState(){
+  try{
+    await window.storage.set('itsjuflores-hub-tools', JSON.stringify(tools), false);
+  }catch(e){
+    console.error("erro ao salvar", e);
+  }
+}
+
+function escapeHtml(s){
+  return (s||"").replace(/[&<>"']/g, m => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
+}
+function uid(){ return Date.now() + Math.floor(Math.random()*1000); }
+
+function cardHTML(t){
+  const hasUrl = t.url && t.url.trim();
+  const openBtn = hasUrl
+    ? `<a class="open-btn" href="${escapeHtml(t.url)}" target="_blank" rel="noopener">Abrir →</a>`
+    : `<button class="open-btn missing" data-edit="${t.id}">colar link →</button>`;
+  return `
+  <div class="card" data-id="${t.id}">
+    <div class="emoji">${t.emoji||"🔗"}</div>
+    <h3>${escapeHtml(t.title||"Sem nome")}</h3>
+    <p>${escapeHtml(t.description||"")}</p>
+    <div class="card-footer">
+      ${openBtn}
+      <div class="card-actions">
+        <button class="icon-btn" data-edit="${t.id}" title="editar">✎</button>
+        <button class="icon-btn" data-delete="${t.id}" title="excluir">🗑</button>
+      </div>
+    </div>
+  </div>`;
+}
+
+function render(){
+  const el = document.getElementById('toolGrid');
+  if(!tools.length){
+    el.innerHTML = `<div class="empty-note">Nenhuma ferramenta cadastrada ainda — clique em "+ Nova ferramenta".</div>`;
+    return;
+  }
+  el.innerHTML = tools.map(cardHTML).join("");
+
+  el.querySelectorAll('[data-edit]').forEach(btn=>{
+    btn.addEventListener('click', ()=> openToolModal(parseInt(btn.dataset.edit)));
+  });
+  el.querySelectorAll('[data-delete]').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      if(confirm('Remover esta ferramenta da central?')){
+        tools = tools.filter(t=>t.id!==parseInt(btn.dataset.delete));
+        saveState();
+        render();
+      }
+    });
+  });
+}
+
+function openToolModal(id){
+  const isNew = id===null || id===undefined;
+  const t = isNew
+    ? {id:null, emoji:"🗂️", title:"", description:"", url:""}
+    : tools.find(x=>x.id===id);
+
+  document.getElementById('modalContent').innerHTML = `
+    <div class="field"><label>Emoji</label>
+      <div class="emoji-row" id="emojiRow">
+        ${EMOJI_OPTIONS.map(e=>`<button type="button" data-e="${e}" class="${e===t.emoji?'on':''}">${e}</button>`).join("")}
+      </div>
+    </div>
+    <div class="field"><label>Nome da ferramenta</label><input type="text" id="fTitle" value="${escapeHtml(t.title)}" placeholder="ex.: Painel Editorial" /></div>
+    <div class="field"><label>Descrição curta</label><textarea id="fDesc" placeholder="pra que serve essa ferramenta">${escapeHtml(t.description)}</textarea></div>
+    <div class="field"><label>Link publicado</label><input type="url" id="fUrl" value="${escapeHtml(t.url)}" placeholder="cole aqui o link que o Claude gerou ao publicar" /></div>
+    <div class="modal-actions">
+      <button class="save-btn" id="saveToolBtn">${isNew? "Adicionar":"Salvar alterações"}</button>
+      ${!isNew ? `<button class="danger-btn" id="deleteToolBtn">Excluir</button>` : ""}
+    </div>
+  `;
+
+  let currentEmoji = t.emoji || "🗂️";
+  document.getElementById('emojiRow').querySelectorAll('button').forEach(b=>{
+    b.addEventListener('click', ()=>{
+      currentEmoji = b.dataset.e;
+      document.getElementById('emojiRow').querySelectorAll('button').forEach(x=>x.classList.toggle('on', x===b));
+    });
+  });
+
+  document.getElementById('saveToolBtn').addEventListener('click', ()=>{
+    const title = document.getElementById('fTitle').value.trim();
+    if(!title){ alert('Dá um nome pra ferramenta antes de salvar :)'); return; }
+    const payload = {
+      emoji: currentEmoji,
+      title,
+      description: document.getElementById('fDesc').value.trim(),
+      url: document.getElementById('fUrl').value.trim()
+    };
+    if(isNew){
+      tools.push({id: uid(), ...payload});
+    } else {
+      Object.assign(t, payload);
+    }
+    saveState();
+    render();
+    closeModal();
+  });
+
+  const deleteToolBtn = document.getElementById('deleteToolBtn');
+  if(deleteToolBtn){
+    deleteToolBtn.addEventListener('click', ()=>{
+      if(confirm('Excluir esta ferramenta da central?')){
+        tools = tools.filter(x=>x.id!==t.id);
+        saveState();
+        render();
+        closeModal();
+      }
+    });
+  }
+
+  document.getElementById('overlay').classList.add('open');
+}
+
+function closeModal(){
+  document.getElementById('overlay').classList.remove('open');
+}
+
+document.getElementById('modalClose').addEventListener('click', closeModal);
+document.getElementById('overlay').addEventListener('click', (e)=>{ if(e.target.id==='overlay') closeModal(); });
+document.getElementById('addToolBtn').addEventListener('click', ()=> openToolModal(null));
+
+loadState();
+</script>
+</body>
+</html>
