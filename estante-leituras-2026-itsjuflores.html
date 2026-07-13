@@ -1,0 +1,1017 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<title>Estante 2026 — @itsjuflores</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Fraunces:ital,opsz,wght@1,9..144,500&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F6F3F9;
+    --bg-deep:#EDE7F3;
+    --surface:#FFFFFF;
+    --stone:#CFC9BD;
+    --stone-soft:#E7E2D7;
+    --ink:#2C2A35;
+    --ink-soft:#716C7C;
+    --lavender:#8C7BC9;
+    --lavender-deep:#6C5AA8;
+    --rust:#9B504B;
+    --coral:#D2634F;
+    --indigo:#5C69AF;
+    --line:rgba(44,42,53,0.12);
+    --shadow:0 14px 30px -16px rgba(76,60,120,0.28);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:
+      radial-gradient(1000px 460px at 8% -10%, rgba(140,123,201,0.14), transparent 60%),
+      radial-gradient(900px 480px at 100% 0%, rgba(210,99,79,0.10), transparent 55%),
+      var(--bg);
+    color:var(--ink);
+    font-family:'Public Sans', sans-serif;
+    min-height:100vh;
+  }
+  .wrap{max-width:1180px;margin:0 auto;padding:38px 22px 90px;}
+
+  /* ---------- HERO ---------- */
+  .hero{ display:flex; justify-content:space-between; align-items:flex-end; gap:24px; padding-bottom:26px; margin-bottom:28px; border-bottom:1px solid var(--line);}
+  .kicker{ font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:.18em; text-transform:uppercase; color:var(--indigo); margin:0 0 10px;}
+  h1.title{ font-family:'Fraunces', serif; font-weight:600; font-size:42px; line-height:1.02; color:var(--ink); margin:0; letter-spacing:-0.01em;}
+  h1.title em{ font-style:italic; font-weight:500; color:var(--lavender-deep); }
+  .hero-sub{ color:var(--ink-soft); font-size:14.5px; margin-top:10px; max-width:440px; line-height:1.5;}
+  .hero-stamp{ font-family:'IBM Plex Mono', monospace; text-align:right; color:var(--ink-soft); font-size:12px;}
+  .hero-stamp .n{ font-family:'Fraunces', serif; font-size:34px; color:var(--lavender-deep); font-weight:600; display:block; line-height:1;}
+
+  .year-switch{ display:flex; gap:6px; margin-top:16px; align-items:center; }
+  .year-switch button{
+    font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:.05em;
+    background:var(--surface); color:var(--ink-soft); border:1px solid var(--line); padding:7px 13px; border-radius:5px; cursor:pointer;
+  }
+  .year-switch button.active{ background:var(--lavender); border-color:var(--lavender); color:#fff; font-weight:600;}
+  .year-switch .add-year-btn{
+    background:transparent; color:var(--indigo); border:1px dashed var(--indigo); font-weight:600;
+  }
+  .year-switch .add-year-btn:hover{ background:rgba(92,105,175,0.08); }
+
+  /* ---------- STATS ---------- */
+  .stats{ display:grid; grid-template-columns:repeat(5,1fr); gap:14px; margin-bottom:30px;}
+  @media (max-width:980px){ .stats{ grid-template-columns:repeat(2,1fr);} }
+  .stat-card{ background:var(--surface); border-radius:6px; padding:14px 16px; box-shadow:var(--shadow); border-top:3px solid var(--stone);}
+  .stat-card.lav{ border-top-color:var(--lavender);}
+  .stat-card.cor{ border-top-color:var(--coral);}
+  .stat-card.ind{ border-top-color:var(--indigo);}
+  .stat-label{ font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-soft);}
+  .stat-value{ font-family:'Fraunces', serif; font-size:28px; font-weight:600; margin-top:2px;}
+
+  /* ---------- CONTROLS ---------- */
+  .controls{ display:flex; gap:12px; align-items:center; margin-bottom:20px; flex-wrap:wrap;}
+  .search{ flex:1; min-width:220px; background:var(--surface); border:1px solid var(--line); border-radius:6px; padding:10px 14px; font-family:'Public Sans',sans-serif; font-size:14px; color:var(--ink);}
+  .search:focus{ outline:none; border-color:var(--lavender);}
+  .tabs{ display:flex; gap:6px; flex-wrap:wrap;}
+  .tabs button{
+    font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:.05em; text-transform:uppercase;
+    background:var(--surface); color:var(--ink-soft); border:1px solid var(--line); padding:9px 14px; border-radius:6px; cursor:pointer;
+  }
+  .tabs button.active{ background:var(--ink); border-color:var(--ink); color:var(--bg); font-weight:600;}
+  .add-btn{
+    font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:.05em; text-transform:uppercase;
+    background:var(--lavender); border:1px solid var(--lavender); color:#fff; font-weight:600;
+    padding:9px 16px; border-radius:6px; cursor:pointer; white-space:nowrap;
+  }
+  .add-btn:hover{ background:var(--lavender-deep); border-color:var(--lavender-deep);}
+  .add-btn.ghost{ background:transparent; color:var(--indigo); border-color:var(--indigo);}
+  .status-filter{ display:flex; gap:6px; flex-wrap:wrap; margin-bottom:22px;}
+  .status-filter button{
+    font-family:'IBM Plex Mono', monospace; font-size:10.5px; letter-spacing:.04em; text-transform:uppercase;
+    background:var(--surface); border:1px solid var(--line); color:var(--ink-soft); padding:7px 12px; border-radius:5px; cursor:pointer;
+  }
+  .status-filter button.active{ background:var(--ink); border-color:var(--ink); color:var(--bg); font-weight:600;}
+
+  /* ---------- SHELF / GRID ---------- */
+  .shelf-section{ margin-bottom:34px; }
+  .shelf-title{
+    font-family:'Fraunces', serif; font-size:20px; font-weight:500; color:var(--ink); margin:0 0 14px;
+    display:flex; align-items:center; gap:10px;
+  }
+  .shelf-title .count{ font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--ink-soft); font-weight:400;}
+  .shelf-line{ border:none; border-top:3px solid var(--stone); border-radius:3px; margin:0 0 16px; }
+  .book-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(140px,1fr)); gap:16px;}
+  .book-scroll{ display:flex; gap:14px; overflow-x:auto; padding-bottom:8px;}
+  .book-scroll .book-card{ flex:0 0 130px; }
+
+  .book-card{ cursor:pointer; }
+  .book-cover{
+    width:100%; aspect-ratio:2/3; border-radius:4px; overflow:hidden; position:relative;
+    box-shadow:0 10px 20px -8px rgba(44,42,53,0.35); background:var(--stone-soft);
+  }
+  .book-cover img{ width:100%; height:100%; object-fit:cover; display:block;}
+  .book-spine-placeholder{
+    width:100%; height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center; padding:14px 10px; color:#fff;
+  }
+  .book-spine-placeholder .t{ font-family:'Fraunces',serif; font-weight:600; font-size:13px; line-height:1.25; }
+  .book-spine-placeholder .a{ font-family:'IBM Plex Mono',monospace; font-size:9.5px; margin-top:8px; opacity:.85; }
+  .book-status-dot{
+    position:absolute; top:7px; right:7px; width:10px; height:10px; border-radius:50%;
+    border:2px solid rgba(255,255,255,0.85); box-shadow:0 1px 4px rgba(0,0,0,0.3);
+  }
+  .book-meta{ margin-top:8px; }
+  .book-meta .bt{ font-family:'Public Sans',sans-serif; font-weight:600; font-size:12.5px; color:var(--ink); line-height:1.3;
+    display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;}
+  .book-meta .ba{ font-family:'IBM Plex Mono',monospace; font-size:10px; color:var(--ink-soft); margin-top:2px;}
+  .book-stars{ font-size:10px; color:var(--coral); margin-top:3px;}
+
+  .empty-note{ font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--ink-soft); text-align:center; padding:28px 0;}
+
+  /* ---------- AUTHOR / GENRE GROUPS ---------- */
+  .group-block{ margin-bottom:32px; }
+  .group-head{
+    display:flex; align-items:baseline; gap:10px; margin-bottom:12px; padding-bottom:8px; border-bottom:1px solid var(--line);
+  }
+  .group-head h3{ font-family:'Fraunces',serif; font-size:19px; font-weight:600; margin:0; color:var(--ink);}
+  .group-head span{ font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--ink-soft);}
+
+  /* ---------- MONTH VIEW ---------- */
+  .month-block{ background:var(--surface); border-radius:8px; padding:16px 18px; box-shadow:var(--shadow); margin-bottom:14px;}
+  .month-head{ display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;}
+  .month-head h3{ font-family:'Fraunces',serif; font-size:17px; font-weight:600; margin:0; text-transform:capitalize; color:var(--ink);}
+  .month-head span{ font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--ink-soft);}
+
+  /* ---------- SERIES ---------- */
+  .series-card{ background:var(--surface); border-radius:8px; padding:20px 22px; box-shadow:var(--shadow); margin-bottom:20px;}
+  .series-top{ display:flex; justify-content:space-between; align-items:flex-start; gap:14px; margin-bottom:14px; flex-wrap:wrap;}
+  .series-name{ font-family:'Fraunces',serif; font-size:22px; font-weight:600; color:var(--ink); margin:0;}
+  .series-sub{ font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--ink-soft); margin-top:4px;}
+  .series-badge{
+    font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.06em; text-transform:uppercase;
+    padding:5px 10px; border-radius:4px; font-weight:600; white-space:nowrap;
+  }
+  .series-badge.complete{ background:rgba(92,105,175,0.14); color:var(--indigo);}
+  .series-badge.progress{ background:rgba(210,99,79,0.12); color:var(--coral);}
+  .series-progress-bar{ height:6px; background:var(--stone-soft); border-radius:4px; overflow:hidden; margin-bottom:16px;}
+  .series-progress-bar > div{ height:100%; background:var(--indigo); }
+  .series-slots{ display:grid; grid-template-columns:repeat(auto-fill, minmax(120px,1fr)); gap:14px;}
+  .slot{ cursor:pointer; }
+  .slot-cover{
+    width:100%; aspect-ratio:2/3; border-radius:4px; overflow:hidden; position:relative; background:var(--stone-soft);
+  }
+  .slot-cover img{ width:100%; height:100%; object-fit:cover; display:block;}
+  .slot-empty{
+    width:100%; height:100%; border:2px dashed var(--stone); border-radius:4px; display:flex; align-items:center; justify-content:center;
+    text-align:center; padding:8px; font-family:'IBM Plex Mono',monospace; font-size:9.5px; color:var(--ink-soft);
+  }
+  .slot-num{ font-family:'IBM Plex Mono',monospace; font-size:9px; color:var(--ink-soft); margin-top:6px; text-align:center;}
+  .slot-title{ font-family:'Public Sans',sans-serif; font-size:11px; font-weight:600; text-align:center; margin-top:2px; color:var(--ink);}
+  .series-actions{ display:flex; gap:8px; margin-top:16px;}
+  .link-btn{
+    font-family:'IBM Plex Mono',monospace; font-size:10.5px; text-transform:uppercase; letter-spacing:.04em;
+    background:none; border:none; color:var(--indigo); cursor:pointer; padding:0; text-decoration:underline;
+  }
+
+  /* ---------- MODAL ---------- */
+  .overlay{ position:fixed; inset:0; background:rgba(30,20,45,0.55); display:none; align-items:center; justify-content:center; z-index:50; padding:24px; backdrop-filter:blur(2px);}
+  .overlay.open{ display:flex; }
+  .modal{ background:var(--surface); max-width:760px; width:100%; max-height:88vh; overflow-y:auto; border-radius:10px; box-shadow:0 30px 70px rgba(0,0,0,0.35); position:relative;}
+  .modal-inner{ display:grid; grid-template-columns:240px 1fr; gap:0;}
+  @media (max-width:640px){ .modal-inner{ grid-template-columns:1fr;} }
+  .modal-media{ background:var(--stone-soft); position:relative; }
+  .modal-media img{ width:100%; display:block; aspect-ratio:2/3; object-fit:cover;}
+  .upload-target{ display:flex; flex-direction:column; align-items:center; justify-content:center; cursor:pointer; aspect-ratio:2/3; text-align:center; padding:14px; }
+  .upload-target:hover{ background:rgba(140,123,201,0.08); }
+  .upload-target .glyph{ font-family:'Fraunces',serif; font-size:30px; color:var(--stone); font-style:italic; display:block; margin-bottom:6px;}
+  .upload-hint{ font-family:'IBM Plex Mono',monospace; font-size:10px; color:var(--ink-soft); }
+  .cover-replace{
+    position:absolute; bottom:8px; right:8px; background:rgba(44,42,53,0.75); color:#fff; font-family:'IBM Plex Mono',monospace;
+    font-size:10px; letter-spacing:.05em; text-transform:uppercase; padding:6px 10px; border-radius:4px; cursor:pointer;
+  }
+  .modal-content{ padding:22px 24px; }
+  .modal-close{ position:absolute; top:10px; right:12px; background:var(--ink); color:#fff; border:none; width:28px; height:28px; border-radius:50%; cursor:pointer; font-size:15px; z-index:5;}
+  .field{ margin-bottom:13px; }
+  .field label{ display:block; font-family:'IBM Plex Mono',monospace; font-size:10px; text-transform:uppercase; letter-spacing:.06em; color:var(--ink-soft); margin-bottom:4px;}
+  .field input[type=text], .field input[type=number], .field input[type=date], .field select, .field textarea{
+    width:100%; font-family:'Public Sans',sans-serif; font-size:13.5px; color:var(--ink); border:1px solid var(--line);
+    border-radius:5px; padding:8px 10px; background:var(--bg);
+  }
+  .field textarea{ min-height:60px; resize:vertical; }
+  .field-row{ display:flex; gap:10px; }
+  .field-row .field{ flex:1; }
+  .stars-input{ display:flex; gap:4px; font-size:20px; cursor:pointer; }
+  .stars-input span{ color:var(--stone); }
+  .stars-input span.on{ color:var(--coral); }
+  .modal-actions{ display:flex; gap:8px; flex-wrap:wrap; margin-top:16px; }
+  .save-btn{ font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.04em; text-transform:uppercase; background:var(--lavender); color:#fff; border:none; padding:9px 16px; border-radius:5px; cursor:pointer; font-weight:600;}
+  .save-btn:hover{ background:var(--lavender-deep); }
+  .danger-btn{ font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.04em; text-transform:uppercase; background:transparent; color:var(--rust); border:1px solid var(--rust); padding:9px 16px; border-radius:5px; cursor:pointer;}
+
+  ::-webkit-scrollbar{ width:8px; height:8px; }
+  ::-webkit-scrollbar-thumb{ background:rgba(44,42,53,0.2); border-radius:4px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="hero">
+    <div>
+      <p class="kicker">Estante Pessoal · <span id="kickerYear">2026</span></p>
+      <h1 class="title">@itsjuflores <em>— minhas leituras</em></h1>
+      <p class="hero-sub">Toda capa, toda data, toda série — num lugar só. Adicione um livro, marque o progresso, veja o ano tomar forma.</p>
+      <div class="year-switch" id="yearSwitch">
+        <button data-year="2025">2025</button>
+        <button data-year="2026" class="active">2026</button>
+        <button data-year="2027">2027</button>
+        <button class="add-year-btn" id="addYearBtn" type="button">+ ano</button>
+        <span id="addYearForm" style="display:none; align-items:center; gap:6px;">
+          <input type="number" id="newYearInput" placeholder="2028" inputmode="numeric"
+            style="width:76px; font-family:'IBM Plex Mono',monospace; font-size:11px; padding:7px 8px; border:1px solid var(--line); border-radius:5px; background:var(--surface); color:var(--ink);" />
+          <button class="add-year-btn" id="confirmYearBtn" type="button">ok</button>
+          <button class="add-year-btn" id="cancelYearBtn" type="button" style="border-style:solid; color:var(--ink-soft); border-color:var(--line);">✕</button>
+          <span id="newYearError" style="font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:var(--rust); display:none;"></span>
+        </span>
+      </div>
+    </div>
+    <div class="hero-stamp">
+      <span class="n" id="statTotalLidos">0</span>
+      livros concluídos em <span id="heroYear">2026</span>
+    </div>
+  </div>
+
+  <div class="stats">
+    <div class="stat-card lav"><div class="stat-label">Lendo agora</div><div class="stat-value" id="statLendo">0</div></div>
+    <div class="stat-card cor"><div class="stat-label">Na fila</div><div class="stat-value" id="statFila">0</div></div>
+    <div class="stat-card"><div class="stat-label">Autoras diferentes</div><div class="stat-value" id="statAutoras">0</div></div>
+    <div class="stat-card"><div class="stat-label">Gêneros diferentes</div><div class="stat-value" id="statGeneros">0</div></div>
+    <div class="stat-card ind"><div class="stat-label">Séries completas</div><div class="stat-value" id="statSeriesCompletas">0</div></div>
+  </div>
+
+  <div class="controls">
+    <input class="search" id="searchBox" placeholder="Buscar por título, autora ou gênero…" />
+    <div class="tabs" id="tabSwitch">
+      <button data-tab="estante" class="active">Estante</button>
+      <button data-tab="mes">Mês</button>
+      <button data-tab="autores">Autoras</button>
+      <button data-tab="generos">Gêneros</button>
+      <button data-tab="series">Séries</button>
+    </div>
+    <button class="add-btn" id="addBookBtn">+ Novo livro</button>
+    <button class="add-btn ghost" id="exportBtn">Exportar dados</button>
+    <button class="add-btn ghost" id="importBtn">Importar dados</button>
+    <input type="file" accept="application/json" id="importFile" style="display:none;" />
+  </div>
+
+  <div class="status-filter" id="statusFilterRow">
+    <button data-f="all" class="active">Todos</button>
+    <button data-f="Quero ler">Quero ler</button>
+    <button data-f="Lendo">Lendo</button>
+    <button data-f="Concluído">Concluído</button>
+    <button data-f="Abandonado">Abandonado</button>
+  </div>
+
+  <div id="viewEstante"></div>
+  <div id="viewMes" style="display:none;"></div>
+  <div id="viewAutores" style="display:none;"></div>
+  <div id="viewGeneros" style="display:none;"></div>
+  <div id="viewSeries" style="display:none;">
+    <div style="margin-bottom:16px;">
+      <button class="add-btn ghost" id="addSeriesBtn">+ Nova série</button>
+    </div>
+    <div id="seriesList"></div>
+  </div>
+
+</div>
+
+<div class="overlay" id="overlay">
+  <div class="modal">
+    <button class="modal-close" id="modalClose">✕</button>
+    <div class="modal-inner" id="modalInner"></div>
+  </div>
+</div>
+
+<datalist id="genreSuggestions">
+  <option value="Romance Contemporâneo">
+  <option value="Romantasy">
+  <option value="Dark Romance">
+  <option value="Suspense Psicológico">
+  <option value="New Adult">
+  <option value="Romance de Cowboy">
+  <option value="Fantasia Romântica">
+</datalist>
+
+<script>
+const STATUS_META = {
+  "Quero ler": {color:"#8B8478", label:"Quero ler"},
+  "Lendo": {color:"#D2634F", label:"Lendo"},
+  "Concluído": {color:"#5C69AF", label:"Concluído"},
+  "Abandonado": {color:"#9B504B", label:"Abandonado"}
+};
+const MONTHS_PT = ["Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"];
+const PALETTE_SPINES = ["#8C7BC9","#D2634F","#5C69AF","#9B504B","#B08FD8","#E08A72"];
+
+let books = [];
+const DEFAULT_SERIES_2026 = [
+  {
+    id: 1,
+    name: "Chesnut Springs",
+    author: "Elsie Silver",
+    genre: "Romance de Cowboy",
+    books: [
+      {title:"Sem Defeitos", order:1},
+      {title:"Sem Coração", order:2},
+      {title:"Sem Controle", order:3},
+      {title:"Sem Juízo", order:4},
+      {title:"Sem Saída", order:5}
+    ]
+  }
+];
+let series = DEFAULT_SERIES_2026;
+
+let currentTab = "estante";
+let currentSearch = "";
+let currentStatusFilter = "all";
+let currentYear = 2026;
+
+function uid(){ return Date.now() + Math.floor(Math.random()*1000); }
+
+// 2026 keeps the original storage key so existing published data is never touched.
+// Other years get their own separate key, so nothing ever overlaps or gets lost.
+function storageKeyForYear(year){
+  return year === 2026 ? 'itsjuflores-leituras-state' : `itsjuflores-leituras-state-${year}`;
+}
+
+async function loadState(){
+  const key = storageKeyForYear(currentYear);
+  try{
+    const res = await window.storage.get(key, false);
+    if(res && res.value){
+      const parsed = JSON.parse(res.value);
+      books = parsed.books || [];
+      series = parsed.series || (currentYear===2026 ? DEFAULT_SERIES_2026 : []);
+    } else {
+      books = [];
+      series = currentYear===2026 ? DEFAULT_SERIES_2026 : [];
+      await saveState();
+    }
+  }catch(e){
+    books = [];
+    series = currentYear===2026 ? DEFAULT_SERIES_2026 : [];
+    await saveState();
+  }
+  document.getElementById('kickerYear').textContent = currentYear;
+  document.getElementById('heroYear').textContent = currentYear;
+  render();
+}
+
+async function saveState(){
+  const key = storageKeyForYear(currentYear);
+  try{
+    await window.storage.set(key, JSON.stringify({books, series}), false);
+  }catch(e){
+    console.error("erro ao salvar", e);
+    alert("Essa capa pode ser grande demais pra salvar. Tenta uma imagem menor.");
+  }
+}
+
+function escapeHtml(s){
+  return (s||"").replace(/[&<>"']/g, m => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
+}
+
+function parseDateStr(str){
+  if(!str) return null;
+  const [d,m,y] = str.split('/').map(Number);
+  if(!d||!m||!y) return null;
+  return new Date(y, m-1, d);
+}
+function toISODate(ddmmyyyy){
+  if(!ddmmyyyy) return "";
+  const [d,m,y] = ddmmyyyy.split('/');
+  if(!d||!m||!y) return "";
+  return `${y}-${m.padStart(2,'0')}-${d.padStart(2,'0')}`;
+}
+function fromISODate(iso){
+  if(!iso) return "";
+  const [y,m,d] = iso.split('-');
+  return `${d}/${m}/${y}`;
+}
+function spineColor(seed){
+  let h=0;
+  for(let i=0;i<seed.length;i++) h = seed.charCodeAt(i) + ((h<<5)-h);
+  return PALETTE_SPINES[Math.abs(h) % PALETTE_SPINES.length];
+}
+
+function processImageFile(file, onDone, onError){
+  const reader = new FileReader();
+  reader.onerror = () => onError && onError(reader.error);
+  reader.onload = (ev) => {
+    const img = new Image();
+    img.onerror = () => onError && onError(new Error("imagem inválida"));
+    img.onload = () => {
+      const maxW = 500;
+      const scale = Math.min(1, maxW / img.width);
+      const w = Math.round(img.width * scale);
+      const h = Math.round(img.height * scale);
+      const canvas = document.createElement('canvas');
+      canvas.width = w; canvas.height = h;
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(img, 0, 0, w, h);
+      onDone(canvas.toDataURL('image/jpeg', 0.87));
+    };
+    img.src = ev.target.result;
+  };
+  reader.readAsDataURL(file);
+}
+
+function matchesSearch(b, q){
+  if(!q) return true;
+  const hay = `${b.title} ${b.author} ${b.genre}`.toLowerCase();
+  return hay.includes(q.toLowerCase());
+}
+
+function coverHTML(b, size){
+  if(b.cover){
+    return `<img src="${b.cover}" alt="Capa de ${escapeHtml(b.title)}"/>`;
+  }
+  const c = spineColor(b.title + b.author);
+  return `<div class="book-spine-placeholder" style="background:${c};">
+    <div class="t">${escapeHtml(b.title||"Sem título")}</div>
+    <div class="a">${escapeHtml(b.author||"")}</div>
+  </div>`;
+}
+
+function bookCardHTML(b){
+  const meta = STATUS_META[b.status] || STATUS_META["Quero ler"];
+  const stars = b.rating ? "★".repeat(b.rating) + "☆".repeat(5-b.rating) : "";
+  return `
+  <div class="book-card" data-id="${b.id}">
+    <div class="book-cover">
+      <span class="book-status-dot" style="background:${meta.color}" title="${meta.label}"></span>
+      ${coverHTML(b)}
+    </div>
+    <div class="book-meta">
+      <div class="bt">${escapeHtml(b.title||"Sem título")}</div>
+      <div class="ba">${escapeHtml(b.author||"autora?")}</div>
+      ${stars ? `<div class="book-stars">${stars}</div>` : ""}
+    </div>
+  </div>`;
+}
+
+function bindBookCardClicks(container){
+  container.querySelectorAll('.book-card').forEach(el=>{
+    el.addEventListener('click', ()=> openBookModal(parseInt(el.dataset.id)));
+  });
+}
+
+function renderStats(){
+  const concluidos = books.filter(b=>b.status==="Concluído").length;
+  const lendo = books.filter(b=>b.status==="Lendo").length;
+  const fila = books.filter(b=>b.status==="Quero ler").length;
+  const autoras = new Set(books.filter(b=>b.author).map(b=>b.author.trim().toLowerCase())).size;
+  const generos = new Set(books.filter(b=>b.genre).map(b=>b.genre.trim().toLowerCase())).size;
+  const seriesCompletas = series.filter(s => s.books.length>0 && s.books.every(slot => findSlotBook(s, slot.order))).length;
+
+  document.getElementById('statTotalLidos').textContent = concluidos;
+  document.getElementById('statLendo').textContent = lendo;
+  document.getElementById('statFila').textContent = fila;
+  document.getElementById('statAutoras').textContent = autoras;
+  document.getElementById('statGeneros').textContent = generos;
+  document.getElementById('statSeriesCompletas').textContent = seriesCompletas;
+}
+
+function findSlotBook(s, order){
+  return books.find(b => b.seriesId===s.id && b.seriesPosition===order && b.status==="Concluído");
+}
+
+/* ---------------- ESTANTE ---------------- */
+function renderEstante(){
+  const el = document.getElementById('viewEstante');
+  const filtered = books
+    .filter(b => currentStatusFilter==="all" || b.status===currentStatusFilter)
+    .filter(b => matchesSearch(b, currentSearch));
+
+  if(!filtered.length){
+    el.innerHTML = `<div class="empty-note">Nenhum livro por aqui ainda — clique em "+ Novo livro" pra começar sua estante de 2026.</div>`;
+    return;
+  }
+  el.innerHTML = `<div class="book-grid">${filtered.map(bookCardHTML).join("")}</div>`;
+  bindBookCardClicks(el);
+}
+
+/* ---------------- MÊS ---------------- */
+function renderMes(){
+  const el = document.getElementById('viewMes');
+  const q = currentSearch;
+  const lendoAgora = books.filter(b=>b.status==="Lendo").filter(b=>matchesSearch(b,q));
+  const naFila = books.filter(b=>b.status==="Quero ler").filter(b=>matchesSearch(b,q));
+
+  let html = "";
+  if(lendoAgora.length){
+    html += `<div class="shelf-section"><h3 class="shelf-title">📖 Lendo agora <span class="count">${lendoAgora.length}</span></h3>
+      <div class="book-scroll">${lendoAgora.map(bookCardHTML).join("")}</div></div>`;
+  }
+  if(naFila.length){
+    html += `<div class="shelf-section"><h3 class="shelf-title">🗂️ Na fila <span class="count">${naFila.length}</span></h3>
+      <div class="book-scroll">${naFila.map(bookCardHTML).join("")}</div></div>`;
+  }
+
+  for(let m=0;m<12;m++){
+    const monthBooks = books.filter(b=>{
+      const d = parseDateStr(b.dateEnd);
+      return d && d.getFullYear()===currentYear && d.getMonth()===m && matchesSearch(b,q);
+    });
+    if(!monthBooks.length) continue;
+    html += `
+    <div class="month-block">
+      <div class="month-head"><h3>${MONTHS_PT[m]} ${currentYear}</h3><span>${monthBooks.length} concluído${monthBooks.length>1?'s':''}</span></div>
+      <div class="book-grid">${monthBooks.map(bookCardHTML).join("")}</div>
+    </div>`;
+  }
+
+  if(!html) html = `<div class="empty-note">Nenhuma leitura registrada ainda. Adicione um livro e preencha a data de término pra ele aparecer aqui.</div>`;
+  el.innerHTML = html;
+  bindBookCardClicks(el);
+}
+
+/* ---------------- AUTORES / GÊNEROS ---------------- */
+function renderGroupedBy(field, containerId){
+  const el = document.getElementById(containerId);
+  const filtered = books.filter(b=>matchesSearch(b, currentSearch));
+  const groups = {};
+  filtered.forEach(b=>{
+    const key = (b[field] || "Sem informação").trim() || "Sem informação";
+    (groups[key] = groups[key] || []).push(b);
+  });
+  const keys = Object.keys(groups).sort((a,b)=>groups[b].length - groups[a].length);
+
+  if(!keys.length){
+    el.innerHTML = `<div class="empty-note">Nada por aqui ainda.</div>`;
+    return;
+  }
+
+  el.innerHTML = keys.map(k => `
+    <div class="group-block">
+      <div class="group-head"><h3>${escapeHtml(k)}</h3><span>${groups[k].length} livro${groups[k].length>1?'s':''}</span></div>
+      <div class="book-grid">${groups[k].map(bookCardHTML).join("")}</div>
+    </div>`).join("");
+  bindBookCardClicks(el);
+}
+
+/* ---------------- SÉRIES ---------------- */
+function renderSeries(){
+  const el = document.getElementById('seriesList');
+  if(!series.length){
+    el.innerHTML = `<div class="empty-note">Nenhuma série cadastrada ainda — clique em "+ Nova série".</div>`;
+    return;
+  }
+
+  el.innerHTML = series.map(s=>{
+    const total = s.books.length;
+    const done = s.books.filter(slot => findSlotBook(s, slot.order)).length;
+    const complete = total>0 && done===total;
+    const pct = total ? Math.round(done/total*100) : 0;
+
+    const slots = s.books.sort((a,b)=>a.order-b.order).map(slot=>{
+      const b = findSlotBook(s, slot.order);
+      if(b){
+        return `<div class="slot" data-book-id="${b.id}">
+          <div class="slot-cover">${coverHTML(b)}</div>
+          <div class="slot-num">Nº ${slot.order}</div>
+        </div>`;
+      }
+      return `<div class="slot" data-series-id="${s.id}" data-order="${slot.order}">
+        <div class="slot-cover"><div class="slot-empty">ainda não lido</div></div>
+        <div class="slot-num">Nº ${slot.order}</div>
+        <div class="slot-title">${escapeHtml(slot.title||"")}</div>
+      </div>`;
+    }).join("");
+
+    return `
+    <div class="series-card">
+      <div class="series-top">
+        <div>
+          <h3 class="series-name">${escapeHtml(s.name)}</h3>
+          <div class="series-sub">${escapeHtml(s.author||"")}${s.genre? " · "+escapeHtml(s.genre):""} · ${done} de ${total} lidos</div>
+        </div>
+        <span class="series-badge ${complete?'complete':'progress'}">${complete? "série completa ✓" : pct+"% concluída"}</span>
+      </div>
+      <div class="series-progress-bar"><div style="width:${pct}%"></div></div>
+      <div class="series-slots">${slots}</div>
+      <div class="series-actions">
+        <button class="link-btn" data-edit-series="${s.id}">editar série</button>
+        <button class="link-btn" data-delete-series="${s.id}" style="color:var(--rust);">excluir série</button>
+      </div>
+    </div>`;
+  }).join("");
+
+  el.querySelectorAll('.slot[data-book-id]').forEach(elm=>{
+    elm.addEventListener('click', ()=> openBookModal(parseInt(elm.dataset.bookId)));
+  });
+  el.querySelectorAll('.slot[data-series-id]').forEach(elm=>{
+    elm.addEventListener('click', ()=>{
+      const s = series.find(x=>x.id===parseInt(elm.dataset.seriesId));
+      const order = parseInt(elm.dataset.order);
+      const slotInfo = s.books.find(x=>x.order===order);
+      openBookModal(null, {
+        title: slotInfo.title || "",
+        author: s.author || "",
+        genre: s.genre || "",
+        seriesId: s.id,
+        seriesPosition: order
+      });
+    });
+  });
+  el.querySelectorAll('[data-edit-series]').forEach(elm=>{
+    elm.addEventListener('click', ()=> openSeriesModal(parseInt(elm.dataset.editSeries)));
+  });
+  el.querySelectorAll('[data-delete-series]').forEach(elm=>{
+    elm.addEventListener('click', ()=>{
+      if(confirm('Excluir esta série? Os livros já cadastrados continuam na sua estante, só deixam de fazer parte da série.')){
+        const sid = parseInt(elm.dataset.deleteSeries);
+        books.forEach(b=>{ if(b.seriesId===sid){ b.seriesId=null; b.seriesPosition=null; } });
+        series = series.filter(x=>x.id!==sid);
+        saveState();
+        render();
+      }
+    });
+  });
+}
+
+/* ---------------- RENDER DISPATCH ---------------- */
+function render(){
+  renderStats();
+  document.getElementById('viewEstante').style.display = currentTab==='estante' ? 'block':'none';
+  document.getElementById('viewMes').style.display = currentTab==='mes' ? 'block':'none';
+  document.getElementById('viewAutores').style.display = currentTab==='autores' ? 'block':'none';
+  document.getElementById('viewGeneros').style.display = currentTab==='generos' ? 'block':'none';
+  document.getElementById('viewSeries').style.display = currentTab==='series' ? 'block':'none';
+  document.getElementById('statusFilterRow').style.display = currentTab==='estante' ? 'flex':'none';
+
+  if(currentTab==='estante') renderEstante();
+  else if(currentTab==='mes') renderMes();
+  else if(currentTab==='autores') renderGroupedBy('author','viewAutores');
+  else if(currentTab==='generos') renderGroupedBy('genre','viewGeneros');
+  else if(currentTab==='series') renderSeries();
+}
+
+/* ---------------- BOOK MODAL ---------------- */
+function openBookModal(id, prefill){
+  const isNew = id===null || id===undefined;
+  const b = isNew
+    ? { id:null, title:"", author:"", genre:"", cover:null, dateStart:"", dateEnd:"", status:"Quero ler", rating:0, seriesId:null, seriesPosition:null, notes:"", ...(prefill||{}) }
+    : books.find(x=>x.id===id);
+
+  const seriesOptions = series.map(s=>`<option value="${s.id}" ${b.seriesId===s.id?'selected':''}>${escapeHtml(s.name)}</option>`).join("");
+  const mediaHTML = b.cover
+    ? `<img src="${b.cover}" alt="Capa"/><label class="cover-replace" for="coverUpload">trocar capa</label>`
+    : `<label class="upload-target" for="coverUpload"><span class="glyph">✎</span>sem capa ainda<br><span class="upload-hint">clique para enviar</span></label>`;
+
+  document.getElementById('modalInner').innerHTML = `
+    <div class="modal-media">
+      ${mediaHTML}
+      <input type="file" accept="image/*" id="coverUpload" style="display:none;" />
+    </div>
+    <div class="modal-content">
+      <div class="field"><label>Título</label><input type="text" id="fTitle" value="${escapeHtml(b.title)}" placeholder="Nome do livro" /></div>
+      <div class="field-row">
+        <div class="field"><label>Autora/Autor</label><input type="text" id="fAuthor" value="${escapeHtml(b.author)}" placeholder="Nome" /></div>
+        <div class="field"><label>Gênero</label><input type="text" id="fGenre" list="genreSuggestions" value="${escapeHtml(b.genre)}" placeholder="ex.: Romance Contemporâneo" /></div>
+      </div>
+      <div class="field-row">
+        <div class="field"><label>Início da leitura</label><input type="date" id="fStart" value="${toISODate(b.dateStart)}" /></div>
+        <div class="field"><label>Término da leitura</label><input type="date" id="fEnd" value="${toISODate(b.dateEnd)}" /></div>
+      </div>
+      <div class="field-row">
+        <div class="field"><label>Status</label>
+          <select id="fStatus">
+            ${Object.keys(STATUS_META).map(s=>`<option value="${s}" ${s===b.status?'selected':''}>${s}</option>`).join("")}
+          </select>
+        </div>
+        <div class="field"><label>Nota</label>
+          <div class="stars-input" id="fStars">
+            ${[1,2,3,4,5].map(n=>`<span data-n="${n}" class="${n<=b.rating?'on':''}">★</span>`).join("")}
+          </div>
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="field"><label>Série (opcional)</label>
+          <select id="fSeries"><option value="">— nenhuma —</option>${seriesOptions}</select>
+        </div>
+        <div class="field"><label>Posição na série</label><input type="number" min="1" id="fSeriesPos" value="${b.seriesPosition||''}" placeholder="ex.: 2" /></div>
+      </div>
+      <div class="field"><label>Notas</label><textarea id="fNotes" placeholder="impressões rápidas, spoilers pra você mesma, etc.">${escapeHtml(b.notes||"")}</textarea></div>
+
+      <div class="modal-actions">
+        <button class="save-btn" id="saveBookBtn">${isNew? "Adicionar à estante":"Salvar alterações"}</button>
+        ${!isNew ? `<button class="danger-btn" id="deleteBookBtn">Excluir livro</button>` : ""}
+      </div>
+    </div>
+  `;
+
+  let pendingCover = b.cover;
+  let currentRating = b.rating || 0;
+
+  document.getElementById('fStars').querySelectorAll('span').forEach(star=>{
+    star.addEventListener('click', ()=>{
+      currentRating = parseInt(star.dataset.n);
+      document.getElementById('fStars').querySelectorAll('span').forEach(s=>{
+        s.classList.toggle('on', parseInt(s.dataset.n)<=currentRating);
+      });
+    });
+  });
+
+  function wireCoverUpload(){
+    const input = document.getElementById('coverUpload');
+    input.addEventListener('change', (e)=>{
+      const file = e.target.files[0];
+      if(!file) return;
+      processImageFile(file, (dataUrl)=>{
+        pendingCover = dataUrl;
+        const mm = document.querySelector('.modal-media');
+        mm.innerHTML = `<img src="${dataUrl}" alt="Capa"/><label class="cover-replace" for="coverUpload">trocar capa</label><input type="file" accept="image/*" id="coverUpload" style="display:none;" />`;
+        wireCoverUpload();
+      });
+    });
+  }
+  wireCoverUpload();
+
+  document.getElementById('saveBookBtn').addEventListener('click', ()=>{
+    const title = document.getElementById('fTitle').value.trim();
+    if(!title){ alert('Dá um título pro livro antes de salvar :)'); return; }
+    const seriesVal = document.getElementById('fSeries').value;
+    const payload = {
+      title,
+      author: document.getElementById('fAuthor').value.trim(),
+      genre: document.getElementById('fGenre').value.trim(),
+      cover: pendingCover,
+      dateStart: fromISODate(document.getElementById('fStart').value),
+      dateEnd: fromISODate(document.getElementById('fEnd').value),
+      status: document.getElementById('fStatus').value,
+      rating: currentRating,
+      seriesId: seriesVal ? parseInt(seriesVal) : null,
+      seriesPosition: document.getElementById('fSeriesPos').value ? parseInt(document.getElementById('fSeriesPos').value) : null,
+      notes: document.getElementById('fNotes').value
+    };
+
+    if(isNew){
+      books.push({ id: uid(), ...payload });
+    } else {
+      Object.assign(b, payload);
+    }
+    saveState();
+    render();
+    closeModal();
+  });
+
+  const deleteBookBtn = document.getElementById('deleteBookBtn');
+  if(deleteBookBtn){
+    deleteBookBtn.addEventListener('click', ()=>{
+      if(confirm('Excluir este livro da estante?')){
+        books = books.filter(x=>x.id!==b.id);
+        saveState();
+        render();
+        closeModal();
+      }
+    });
+  }
+
+  document.getElementById('overlay').classList.add('open');
+}
+
+/* ---------------- SERIES MODAL ---------------- */
+function openSeriesModal(id){
+  const isNew = id===null || id===undefined;
+  const s = isNew
+    ? {id:null, name:"", author:"", genre:"", books:[]}
+    : series.find(x=>x.id===id);
+  const titlesText = s.books.sort((a,b)=>a.order-b.order).map(x=>x.title).join("\n");
+
+  document.getElementById('modalInner').innerHTML = `
+    <div class="modal-content" style="grid-column:1/-1;">
+      <div class="field"><label>Nome da série</label><input type="text" id="sName" value="${escapeHtml(s.name)}" placeholder="ex.: Chesnut Springs" /></div>
+      <div class="field-row">
+        <div class="field"><label>Autora/Autor</label><input type="text" id="sAuthor" value="${escapeHtml(s.author)}" /></div>
+        <div class="field"><label>Gênero</label><input type="text" id="sGenre" list="genreSuggestions" value="${escapeHtml(s.genre)}" /></div>
+      </div>
+      <div class="field">
+        <label>Livros da série (um título por linha, na ordem)</label>
+        <textarea id="sBooks" style="min-height:160px;" placeholder="Livro 1&#10;Livro 2&#10;Livro 3">${escapeHtml(titlesText)}</textarea>
+      </div>
+      <div class="modal-actions">
+        <button class="save-btn" id="saveSeriesBtn">${isNew? "Criar série":"Salvar série"}</button>
+        ${!isNew ? `<button class="danger-btn" id="deleteSeriesBtn">Excluir série</button>` : ""}
+      </div>
+    </div>
+  `;
+  document.querySelector('.modal-inner').style.gridTemplateColumns = "1fr";
+
+  document.getElementById('saveSeriesBtn').addEventListener('click', ()=>{
+    const name = document.getElementById('sName').value.trim();
+    if(!name){ alert('Dá um nome pra série antes de salvar :)'); return; }
+    const lines = document.getElementById('sBooks').value.split('\n').map(l=>l.trim()).filter(Boolean);
+    const newBooks = lines.map((title,i)=>({title, order:i+1}));
+    const payload = {
+      name,
+      author: document.getElementById('sAuthor').value.trim(),
+      genre: document.getElementById('sGenre').value.trim(),
+      books: newBooks
+    };
+    if(isNew){
+      series.push({id: uid(), ...payload});
+    }else{
+      Object.assign(s, payload);
+    }
+    saveState();
+    render();
+    closeModal();
+  });
+
+  const deleteSeriesBtn = document.getElementById('deleteSeriesBtn');
+  if(deleteSeriesBtn){
+    deleteSeriesBtn.addEventListener('click', ()=>{
+      if(confirm('Excluir esta série?')){
+        books.forEach(b=>{ if(b.seriesId===s.id){ b.seriesId=null; b.seriesPosition=null; } });
+        series = series.filter(x=>x.id!==s.id);
+        saveState();
+        render();
+        closeModal();
+      }
+    });
+  }
+
+  document.getElementById('overlay').classList.add('open');
+}
+
+function closeModal(){
+  document.getElementById('overlay').classList.remove('open');
+  document.querySelector('.modal-inner').style.gridTemplateColumns = "";
+}
+
+/* ---------------- EVENTS ---------------- */
+document.getElementById('modalClose').addEventListener('click', closeModal);
+document.getElementById('overlay').addEventListener('click', (e)=>{ if(e.target.id==='overlay') closeModal(); });
+
+document.getElementById('searchBox').addEventListener('input', (e)=>{ currentSearch = e.target.value; render(); });
+
+document.getElementById('tabSwitch').addEventListener('click', (e)=>{
+  const btn = e.target.closest('button'); if(!btn) return;
+  document.querySelectorAll('#tabSwitch button').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  currentTab = btn.dataset.tab;
+  render();
+});
+
+document.getElementById('statusFilterRow').addEventListener('click', (e)=>{
+  const btn = e.target.closest('button'); if(!btn) return;
+  document.querySelectorAll('#statusFilterRow button').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  currentStatusFilter = btn.dataset.f;
+  render();
+});
+
+document.getElementById('addBookBtn').addEventListener('click', ()=> openBookModal(null));
+document.getElementById('addSeriesBtn').addEventListener('click', ()=> openSeriesModal(null));
+
+function addYearTab(y){
+  const existing = Array.from(document.querySelectorAll('#yearSwitch button[data-year]')).map(b=>parseInt(b.dataset.year));
+  if(existing.includes(y)){
+    return document.querySelector(`#yearSwitch button[data-year="${y}"]`);
+  }
+  const newBtn = document.createElement('button');
+  newBtn.dataset.year = y;
+  newBtn.textContent = y;
+  const allYearBtns = Array.from(document.querySelectorAll('#yearSwitch button[data-year]'));
+  const nextSibling = allYearBtns.find(b => parseInt(b.dataset.year) > y);
+  const addYearBtn = document.getElementById('addYearBtn');
+  if(nextSibling){
+    document.getElementById('yearSwitch').insertBefore(newBtn, nextSibling);
+  } else {
+    document.getElementById('yearSwitch').insertBefore(newBtn, addYearBtn);
+  }
+  return newBtn;
+}
+
+async function switchToYear(newBtn){
+  const newYear = parseInt(newBtn.dataset.year);
+  if(newYear === currentYear) return;
+
+  await saveState();
+
+  document.querySelectorAll('#yearSwitch button[data-year]').forEach(b=>b.classList.remove('active'));
+  newBtn.classList.add('active');
+
+  currentYear = newYear;
+  currentTab = "estante";
+  currentSearch = "";
+  currentStatusFilter = "all";
+  document.getElementById('searchBox').value = "";
+  document.querySelectorAll('#tabSwitch button').forEach(b=>b.classList.toggle('active', b.dataset.tab==='estante'));
+  document.querySelectorAll('#statusFilterRow button').forEach(b=>b.classList.toggle('active', b.dataset.f==='all'));
+
+  await loadState();
+}
+
+document.getElementById('yearSwitch').addEventListener('click', async (e)=>{
+  const btn = e.target.closest('button');
+  if(!btn) return;
+  if(btn.id === 'addYearBtn' || btn.id === 'confirmYearBtn' || btn.id === 'cancelYearBtn') return;
+  await switchToYear(btn);
+});
+
+document.getElementById('addYearBtn').addEventListener('click', ()=>{
+  const form = document.getElementById('addYearForm');
+  const isOpen = form.style.display === 'inline-flex';
+  form.style.display = isOpen ? 'none' : 'inline-flex';
+  if(!isOpen){
+    const input = document.getElementById('newYearInput');
+    input.value = "";
+    input.focus();
+  }
+});
+
+document.getElementById('cancelYearBtn').addEventListener('click', ()=>{
+  document.getElementById('addYearForm').style.display = 'none';
+});
+
+async function confirmNewYear(){
+  const input = document.getElementById('newYearInput');
+  const errorEl = document.getElementById('newYearError');
+  errorEl.style.display = 'none';
+  const y = parseInt(input.value);
+  if(!y || y < 2000 || y > 2100){
+    errorEl.textContent = 'Digita um ano válido, tipo 2028.';
+    errorEl.style.display = 'inline';
+    input.focus();
+    return;
+  }
+  const existing = Array.from(document.querySelectorAll('#yearSwitch button[data-year]')).map(b=>parseInt(b.dataset.year));
+  if(existing.includes(y)){
+    errorEl.textContent = 'Esse ano já está na lista.';
+    errorEl.style.display = 'inline';
+    return;
+  }
+  const newBtn = addYearTab(y);
+  document.getElementById('addYearForm').style.display = 'none';
+  await switchToYear(newBtn);
+}
+
+document.getElementById('confirmYearBtn').addEventListener('click', confirmNewYear);
+document.getElementById('newYearInput').addEventListener('keydown', (e)=>{
+  if(e.key === 'Enter'){ e.preventDefault(); confirmNewYear(); }
+  if(e.key === 'Escape'){ document.getElementById('addYearForm').style.display = 'none'; }
+});
+
+document.getElementById('exportBtn').addEventListener('click', ()=>{
+  const data = JSON.stringify({books, series}, null, 2);
+  const blob = new Blob([data], {type:'application/json'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  const today = new Date();
+  const stamp = `${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,'0')}-${String(today.getDate()).padStart(2,'0')}`;
+  a.href = url;
+  a.download = `estante-leituras-${currentYear}-backup-${stamp}.json`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+});
+
+document.getElementById('importBtn').addEventListener('click', ()=>{
+  document.getElementById('importFile').click();
+});
+document.getElementById('importFile').addEventListener('change', (e)=>{
+  const file = e.target.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = (ev)=>{
+    try{
+      const parsed = JSON.parse(ev.target.result);
+      const incomingBooks = parsed.books || [];
+      const incomingSeries = parsed.series || [];
+      const mode = books.length
+        ? confirm(`Você já tem ${books.length} livro(s) cadastrados aqui.\n\nOK = mesclar com o backup importado (${incomingBooks.length} livro(s))\nCancelar = substituir tudo pelo backup importado`)
+        : true;
+      if(mode && books.length){
+        const existingIds = new Set(books.map(b=>b.id));
+        incomingBooks.forEach(b=>{ if(!existingIds.has(b.id)) books.push(b); });
+        const existingSeriesIds = new Set(series.map(s=>s.id));
+        incomingSeries.forEach(s=>{ if(!existingSeriesIds.has(s.id)) series.push(s); });
+      } else {
+        books = incomingBooks;
+        series = incomingSeries.length ? incomingSeries : series;
+      }
+      saveState();
+      render();
+      alert('Importação concluída!');
+    }catch(err){
+      alert('Não consegui ler esse arquivo. Confere se é um .json exportado daqui mesmo.');
+      console.error(err);
+    }
+    e.target.value = "";
+  };
+  reader.readAsText(file);
+});
+
+loadState();
+</script>
+</body>
+</html>
